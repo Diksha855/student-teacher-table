@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Students Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin-bottom: 40px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #8888;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #cfcfcf;
+    }
+  </style>
+</head>
+<body><center>
+
+  <h1>Students</h1>
+  <table id="student-table">
+    <thead>
+      <tr>
+        <th>SID</th>
+        <th>Name</th>
+        <th>Class</th>
+        <th>Section</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Parent Contact</th>
+        <th>Aadhar</th>
+        <th>Sport</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const studentAPI = '/api/students';
+
+    fetch(studentAPI)
+    .then(res => res.json())
+    .then(students => {
+      const studentBody = document.querySelector('#student-table tbody');
+
+      students.forEach(s => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${s.sid}</td>
+          <td>${s.name}</td>
+          <td>${s.class}</td>
+          <td>${s.section}</td>
+          <td>${s.gender}</td>
+          <td>${s.age}</td>
+          <td>${s.p_contact}</td>
+          <td>${s.aadhar}</td>
+          <td>${s.sport}</td>
+        `;
+        studentBody.appendChild(tr);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  </script>
+</center>  
+</body>
+</html>

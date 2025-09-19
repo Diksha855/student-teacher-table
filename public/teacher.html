@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Teachers Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin-bottom: 40px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #8888;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #cfcfcf;
+    }
+  </style>
+</head>
+<body><center>
+
+  <h1>Teachers</h1>
+  <table id="teacher-table">
+    <thead>
+      <tr>
+        <th>TID</th>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Gender</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const teacherAPI = '/api/teachers';
+
+    fetch(teacherAPI)
+    .then(res => res.json())
+    .then(teachers => {
+      const teacherBody = document.querySelector('#teacher-table tbody');
+
+      teachers.forEach(t => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${t.tid}</td>
+          <td>${t.name}</td>
+          <td>${t.subj}</td>
+          <td>${t.gender}</td>
+        `;
+        teacherBody.appendChild(tr);
+      });
+    })
+    .catch(error => {
+      console.log('Error fetching data:', error);
+    });
+  </script>
+</center>  
+</body>
+</html>
